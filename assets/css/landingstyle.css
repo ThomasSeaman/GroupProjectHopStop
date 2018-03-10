@@ -1,0 +1,46 @@
+html{
+    height: 100%;
+    width: 100%;
+    align-content: center;
+}
+#formEntries{
+    margin-top: 250px;
+}
+#navBar{
+    opacity: 0.8;
+}
+.formDesign{
+    border: #bc5039 2px solid;
+    padding: 15px;
+    background: #f8f8f8;
+    border-radius: 15px;
+    opacity: 0.8;
+}
+#enterButton,#agreeButton {
+    background: #D69256; 
+    color: #701400;
+    border-color: #701400;
+    opacity: 1.0;
+    border-radius: 3px;
+}
+
+#closeButton{
+    background: rgb(252, 252, 252); 
+    color: #701400;
+    border-color: #701400;
+    opacity: 1.0;
+    border-radius: 3px;
+}
+
+#landingDiv {
+    background: rgba(248, 248, 248, 0.885);
+    border-radius: 5px;
+    position: relative;
+    transform: translateY(80%);
+}
+#welcomeText {
+    color: black;
+}
+#modalStylingHeader{
+    margin-top:20%;
+}

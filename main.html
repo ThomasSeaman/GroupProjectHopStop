@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/css/uikit.min.css" />
+    <title>Document</title>
+</head>
+<body>
+    <!-- Cover Image with Search Bars inside  -->
+    <div class="uk-cover-container">
+        <!-- <img src="assets/images/wood.jpg" alt="wood" uk-cover> -->
+        <div class="uk-width-medium-1-2 uk-container-center uk-vertical-align" id="searchBar">
+            <form class="uk-search uk-search-large uk-align-center">
+                <span uk-search-icon></span>
+                <input class="uk-search-input" type="search" placeholder="City" id="formUserCity">
+            </form>
+            <form class="uk-search uk-search-large uk-align-center">
+                <span uk-search-icon></span>
+                <input class="uk-search-input" type="search" placeholder="State" id="formUserState"> 
+            </form>
+        </div>
+        <button class="uk-button uk-button-secondary uk-align-center" id="submitBtn" >Submit</button>
+    </div>
+    <!-- Map Div -->
+    <div class="uk-container" id="map">
+
+    </div>
+    <!-- Section component that holds our brewery search results -->
+    <div class="uk-section uk-section-muted">
+        <div class="uk-container">
+            <h3>Search Results</h3>
+            <div id="breweryCard"></div>
+        </div>
+    </div>
+<!-- Sticky Footer -->
+
+    <!-- This is the Google Maps CDN and API key-->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIfqzijKvhMUtMvwGLgZNbIooIGHgHjdE">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/js/uikit-icons.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="assets/javascript/script.js"></script>
+</body>
+</html>
