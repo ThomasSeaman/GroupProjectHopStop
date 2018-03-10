@@ -3,9 +3,6 @@ html{
     width: 100%;
     align-content: center;
 }
-#formEntries{
-    margin-top: 250px;
-}
 #navBar{
     opacity: 0.8;
 }
@@ -16,31 +13,51 @@ html{
     border-radius: 15px;
     opacity: 0.8;
 }
-#enterButton,#agreeButton {
-    background: #D69256; 
-    color: #701400;
-    border-color: #701400;
+#enterButton,#closeButton {
+    background: white; 
+    color: black;
+    border-color: black;
     opacity: 1.0;
     border-radius: 3px;
+    align-items:center;
+    font-family: 'Covered By Your Grace', cursive;
+    font-size: 1.2em;
 }
-
-#closeButton{
-    background: rgb(252, 252, 252); 
-    color: #701400;
-    border-color: #701400;
+#agreeButton{
+    background: black; 
+    color: white;
+    border-color: black;
     opacity: 1.0;
     border-radius: 3px;
+    font-family: 'Covered By Your Grace', cursive;
+    font-size: 1.2em;
 }
-
 #landingDiv {
-    background: rgba(248, 248, 248, 0.885);
+    background: transparent;
     border-radius: 5px;
     position: relative;
-    transform: translateY(80%);
+    transform: translateY(40%);
 }
 #welcomeText {
     color: black;
 }
 #modalStylingHeader{
     margin-top:20%;
+}
+.uk-card-default .uk-card-title {
+    color: white;
+    font-family: 'Covered By Your Grace', cursive;
+    font-size: 2.5em;
+    text-align: center;
+}
+#welcomeText {
+    color: white;
+    font-family: 'Covered By Your Grace', cursive;
+    font-size: 2.0em;
+}
+.uk-button {
+    width: 120px
+}
+.uk-modal-title {
+    font-family: 'Covered By Your Grace', cursive;
 }

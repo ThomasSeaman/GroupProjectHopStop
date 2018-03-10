@@ -8,6 +8,12 @@ var breweryIdArray = []
 var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A1','B1','C1','D1','E1','F1','G1','H1','I1','J1','K','L1','M1','N1','O1','P1','Q1','R1','S1','T1','U1','V1','W1','X1','Y1','Z1']
 var labelIndex = 0
 
+//on enter within "formUserState" fire onclick associated with the submitBtn
+$("#formUserState").keyup(function(event) {
+    if (event.keyCode === 13) {
+        $('#submitBtn').click();
+    }
+});
 
 // On Submit Button Click
 $('#submitBtn').on('click', function () {
@@ -17,7 +23,6 @@ $('#submitBtn').on('click', function () {
     $('#map').empty()
     var latLngArray = []
     var latLngArray = []
-
 
     // Grab user city and state input, and convert into URI code
     var userCity = $('#formUserCity').val()
@@ -80,7 +85,7 @@ $('#submitBtn').on('click', function () {
 
             //Append search results to the page - dynamic jquery using string interpolation
             $('#breweryCard').append(`
-                        <div class="uk-card uk-card-default uk-width-1-2@m">
+                        <div class="uk-card uk-card-default uk-width-1-1">
                             <div class="uk-card-header">
                                 <div class="uk-grid-small uk-flex-middle" uk-grid>
                                     <div class="uk-width-auto">
@@ -105,24 +110,12 @@ $('#submitBtn').on('click', function () {
                         `)
         }
 
-        
-
-        // Calculation for center of lat/long
-        // for (m = 0; m < beerMap.length; m++) {
-        //     var latLngHolder = 0
-        //     var latLngHolder = latLngHolder + beerMap[m]
-        //     console.log(latLngHolder)
-        // }
-
-
         // Initialize map with latLngArray data
         initMap(latLngArray)
 
     }).catch(function (err) {
         console.log(err)
     })
-
-
 
 // Create Map Function
 function initMap(beerMap) {
@@ -177,4 +170,3 @@ function initMap(beerMap) {
 }
 
 })
-
