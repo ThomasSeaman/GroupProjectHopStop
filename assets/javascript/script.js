@@ -7,7 +7,7 @@ var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 var labelIndex = 0
 
 //on enter within "formUserState" fire onclick associated with the submitBtn
-$("#formUserState").keyup(function(event) {
+$("#formUserCity").keyup(function(event) {
     if (event.keyCode === 13) {
         $('#submitBtn').click();
     }
