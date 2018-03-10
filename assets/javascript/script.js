@@ -1,6 +1,4 @@
 
-// $(document).ready(function () {
-
 // Global Variables
 var userInput = "irvine,ca"
 var cityInput
@@ -12,6 +10,9 @@ var latLngArray = []
 //     // Store user input as variable
 //     userInput = $("#").val().trim().toString()
 //     // Request for ID array
+
+// 
+
 
 $.ajax({
     url: "https://crossorigin.me/http://api.brewerydb.com/v2/locations?key=0cb4a8ec09ac574eca1569f7b038857d&locality=san%20clemente&region=california",
@@ -26,33 +27,12 @@ $.ajax({
         latLngArray.push(latLngObj)
 
     }
-    
+
     initMap(latLngArray)
-    // console.log(latLngArray)
 
 }).catch(function(err){
     console.log(err)
 })
-
-// console.log(latLngArray)
-
-// function initMap() {
-//     var center = { lat: -31.563910, lng: 147.154312 };
-//     var map = new google.maps.Map(document.getElementById('map'), {
-//         zoom: 5,
-//         center: center
-//     });
-//     for (i = 0; i < locations.length; i++) {
-//         var position = locations[i]
-//         var marker = new google.maps.Marker({
-//             position: position,
-//             map: map
-//         });
-
-//     }
-
-
-
 
 
 function initMap(beerMap) {
