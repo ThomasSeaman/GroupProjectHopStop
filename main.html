@@ -12,33 +12,34 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- Cover Image with Search Bars inside  -->
-    <div class="uk-cover-container">
-        <!-- <img src="assets/images/wood.jpg" alt="wood" uk-cover> -->
-        <div class="uk-width-medium-1-2 uk-container-center uk-vertical-align" id="searchBar">
-            <form class="uk-search uk-search-large uk-align-center">
-                <span uk-search-icon></span>
-                <input class="uk-search-input" type="search" placeholder="City" id="formUserCity">
-            </form>
-            <form class="uk-search uk-search-large uk-align-center">
-                <span uk-search-icon></span>
-                <input class="uk-search-input" type="search" placeholder="State" id="formUserState"> 
-            </form>
-        </div>
-        <button class="uk-button uk-button-secondary uk-align-center" id="submitBtn" >Submit</button>
-    </div>
-    <!-- Map Div -->
-    <div class="uk-container" id="map">
+    <div class="beerImage">
+            <img src="assets/images/beers.png" alt="Beer Image">
 
+    </div>
+    <!-- Cover Image with Search Bars inside  -->
+    <div class="input">
+        <div class="input-content" align="center">
+        <input id="formUserState" type="search" placeholder="State">
+        <input id="formUserCity" type="search" placeholder="City">
+        <button id="submitBtn">Submit</button> 
+        </div>
+    
+    </div>
+    <!-- map div -->
+    <div class="uk-section uk-section-muted">
+            <div class="uk-container"> 
+            <div class="uk-width-1-1 uk-resize-verticle" id="map">
+            </div>  
+            </div>
     </div>
     <!-- Section component that holds our brewery search results -->
     <div class="uk-section uk-section-muted">
-        <div class="uk-container">
+        <div class="uk-container results-div uk-width-1-1">
             <h3>Search Results</h3>
             <div id="breweryCard"></div>
         </div>
     </div>
-<!-- Sticky Footer -->
+    <!-- Sticky Footer still needs to be coded -->
 
     <!-- This is the Google Maps CDN and API key-->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIfqzijKvhMUtMvwGLgZNbIooIGHgHjdE">
