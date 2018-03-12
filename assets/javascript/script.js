@@ -165,6 +165,24 @@ function initMap(beerMap) {
         })
     }
 
+    // show a button that allows the user to return to the top of the page
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 850 || document.documentElement.scrollTop > 850) {
+        document.getElementById("returnToTop").style.display = "block";
+    } else {
+        document.getElementById("returnToTop").style.display = "none";
+    }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+$("#returnToTop").on("click", function() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+})
+
+
 }
 
 })

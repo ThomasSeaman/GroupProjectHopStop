@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,35 +12,40 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/css/uikit.min.css" />
     <title>Document</title>
 </head>
+
 <body>
     <div class="beerImage">
-            <img src="assets/images/beers.png" alt="Beer Image">
+        <img src="assets/images/beerhopcolor.jpg" alt="Beer Image">
 
     </div>
     <!-- Cover Image with Search Bars inside  -->
     <div class="input">
         <div class="input-content" align="center">
-        <input id="formUserState" type="search" placeholder="State">
-        <input id="formUserCity" type="search" placeholder="City">
-        <button type="button" id="submitBtn">Submit</button>
+            <input id="formUserState" type="search" placeholder="State">
+            <input id="formUserCity" type="search" placeholder="City">
+            <button type="button" id="submitBtn">Submit</button>
         </div>
-    
+
     </div>
     <!-- map div -->
     <div class="uk-section uk-section-muted">
-            <div class="uk-container"> 
+        <div class="uk-container">
             <div class="uk-width-1-1 uk-resize-verticle" id="map">
-            </div>  
             </div>
+        </div>
     </div>
     <!-- Section component that holds our brewery search results -->
     <div class="uk-section uk-section-muted">
-        <div class="uk-container results-div uk-width-1-1">
+        <div class="uk-container results-div uk-width-1-1 search-results">
             <h3>Search Results</h3>
             <div id="breweryCard"></div>
         </div>
     </div>
+
     <!-- Sticky Footer still needs to be coded -->
+    <div class="footer">
+        <input id="returnToTop" type="image" src="assets/images/logotransreturn.png" alt="Submit">
+    </div>
 
     <!-- This is the Google Maps CDN and API key-->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIfqzijKvhMUtMvwGLgZNbIooIGHgHjdE">
@@ -49,4 +55,5 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="assets/javascript/script.js"></script>
 </body>
+
 </html>

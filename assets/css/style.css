@@ -28,4 +28,30 @@ html{
     padding-top: 50px;
 }
 
+.search-results{
+    margin-top:auto;
+    margin-bottom:auto;
+    text-align:center;
+}
+
+#breweryCard{
+    margin-top:auto;
+    margin-bottom:auto;
+    text-align:left;
+}
+
+#returnToTop {
+    display:none;
+    position: fixed;
+    bottom: -77px;
+    right: -38px;
+    z-index: 99;
+    cursor: pointer;
+    width: 300px;
+    height: 300px;
+}
+
+
+
+
 
