@@ -7,15 +7,17 @@
     <title>HopStop</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.40/css/uikit.min.css" />
-    <link href="https://fonts.googleapis.com/css?family=Covered+By+Your+Grace" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Covered+By+Your+Grace" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/landingstyle.css">
 </head>
-<body style="background-image:url(assets/images/wood.jpg); background-repeat: no-repeat; height: 100%; width: 100%; background-size: cover;">
+<img src= "assets/images/beerhopcolor.jpg">
+<!-- <body style="background-image:url(assets/images/chalk.jpg); background-repeat: no-repeat; height: 100%; width: 100%; background-size: cover;"> -->
     <div class="container">
         <div uk-grid>
-            <div class="uk-card uk-card-default uk-card-body uk-margin-auto uk-width-auto" id="landingDiv">
-                <h3 class="uk-card-title">HopStop</h3> <hr>
-                <p id="welcomeText">Your One Stop for Finding a Local Brewery to Hangout At</p>
+            <div class="uk-margin-auto uk-width-auto" id="landingDiv">
+            
+                <p id="welcomeText">Your One Stop for Finding Local Breweries</p>
            
                 <a class="uk-button uk-button-default uk-align-center" href="#modal-sections" id="enterButton" uk-toggle>Enter</a>
                 <div id="modal-sections" uk-modal>
@@ -28,11 +30,8 @@
                             <p>By agreeing, you are confirming you are over the age of 21. </p>
                         </div>
                         <div class="uk-modal-footer uk-text-left">
-                            <a href="main.html">
                             <button class="uk-button uk-button-primary" id="agreeButton" type="button">Agree</button>
-                        </a>
                             <button class="uk-button uk-button-default uk-modal-close" id="closeButton" type="button">Cancel</button>
-                        
                         </div>
                     </div>
                 </div>
