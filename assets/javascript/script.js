@@ -6,6 +6,38 @@ var breweryIdArray = []
 var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1', 'H1', 'I1', 'J1', 'K', 'L1', 'M1', 'N1', 'O1', 'P1', 'Q1', 'R1', 'S1', 'T1', 'U1', 'V1', 'W1', 'X1', 'Y1', 'Z1']
 var labelIndex = 0
 
+//On click for landing page modal
+$("#enterButton").on('click', function () {
+
+
+    swal({
+        title: "Welcome to Hopstop",
+        text: "By agreeing you are confirming you are over the age of 21.",
+        buttons: {
+            text: "Agree",
+            cancel: true
+        }}).then(function(){
+        window.location.href="main.html";
+        })
+    })
+
+
+// $('#enterButton').click(function(e){
+//     e.preventDefault();
+//     var link = $(this).attr('href');
+
+//     swal({
+//         title: "Are you sure?",
+//         text: "By clicking 'OK' you will be redirected to the link.",
+//         type: "warning",
+//         showCancelButton: true
+//     },
+//     function(){
+//         window.location.href = "main.html";
+//     });
+// });
+
+
 //on enter within "formUserState" fire onclick associated with the submitBtn
 $("#formUserCity").keyup(function (event) {
     if (event.keyCode === 13) {
@@ -22,15 +54,17 @@ $('#submitBtn').on('click', function () {
     $('#searchResults').empty() //********Added on 3/11 as part of Incorporate search div into dynamic js.********
     //End of edit # 1
 
+
     $('#map').empty()
     var latLngArray = []
     var latLngArray = []
-
+    var breweryIdArry = []
     // Grab user city and state input, and convert into URI code
     var userCity = $('#formUserCity').val()
     var userState = $('#formUserState').val()
     var userCity = encodeURIComponent(userCity.trim())
     var userState = encodeURIComponent(userState.trim())
+
 
     // ajax request for user input data
     $.ajax({
@@ -47,17 +81,27 @@ $('#submitBtn').on('click', function () {
             $('#formUserCity').val("") //added 3/11 - clears city input 
             $('#formUserState').val("") //added 3/11 - clears state input 
 
-            //**** PLACEHOLDER CODE - NEED TO BUILD A MODAL IN PLACE OF THIS FEATURE****
-            alert("Sorry, but we coudldn't find any breweries in " + userCity + ".")
+            swal("Oops!", "We're unable to locate any breweries in that city. Check your spelling or try a different location. ", {
+                closOnClickOutside: false,
+            });
+
 
         }
 
         else {
+            // add map div to page
+            $('.mapDiv').append(`<div class="uk-section uk-section-muted">
+                <div class="uk-container">
+                <div class="uk-width-1-1 uk-resize-verticle" id="map">
+                </div>
+                </div>
+            </div>`)
 
             //Adds an empty search div to the page. Get's populated later with $('#breweryCard').append function. 
             $('#searchResults').append(`
              <div class="uk-section uk-section-muted">
                 <div class="uk-container results-div uk-width-1-1">
+                    <h4>Click Marker on Map for Brewery Info</h4>
                     <h3>Search Results</h3>
                         <div id="breweryCard"></div>
                 </div>
@@ -104,7 +148,6 @@ $('#submitBtn').on('click', function () {
                 }
                 else {
                     var brewIcon = "assets/images/brewPlaceholder.png"
-
                 }
 
                 // if then to handle undefined description
@@ -120,15 +163,15 @@ $('#submitBtn').on('click', function () {
                         <div class="uk-card uk-card-default uk-width-1-1">
                             <div class="uk-card-header">
                                 <div class="uk-grid-small uk-flex-middle" uk-grid>
-                                    <div class="uk-width-auto">
-                                        <img class="uk-border-circle" width="100" height="100" src="${brewIcon}">
-                                    </div>
-                                    <div class="uk-width-expand">
-                                        <h3 id="card-${breweryId}" class="uk-card-title uk-margin-remove-bottom">${breweryName}</h3>
+                                    <div class="uk-width">
+                                        <img class="uk-border-circle uk-align-center" id="brewImage" src="${brewIcon}">
                                     </div>
                                 </div>
                             </div>
                         <div class="uk-card-body">
+                        <div class="uk-width">
+                                        <h3 id="card-${breweryId}" class="uk-margin-remove-bottom">${breweryName}</h3>
+                                    </div>
                             <h6>Description<h6>
                                 <p>${description}</p>
                         </div>
@@ -147,7 +190,7 @@ $('#submitBtn').on('click', function () {
 
         }
 
-    //Error Log
+        //Error Log
     }).catch(function (err) {
         console.log(err)
     })
@@ -157,7 +200,7 @@ $('#submitBtn').on('click', function () {
     function initMap(beerMap) {
 
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 10,
+            zoom: 11,
             center: beerMap[0]
         })
 

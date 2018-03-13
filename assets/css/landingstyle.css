@@ -13,7 +13,13 @@ html{
     border-radius: 15px;
     opacity: 0.8;
 }
-#enterButton,#closeButton {
+#welcomeText {
+    color: black;
+    font-family: 'Amatic SC', cursive;
+    font-size: 2.5em;
+    transform: translateY(40%);
+        }
+#enterButton {
     background: white; 
     color: black;
     border-color: black;
@@ -22,17 +28,8 @@ html{
     align-items:center;
     /* font-family: 'Covered By Your Grace', cursive; */
     font-family: 'Amatic SC', cursive;
-    font-size: 1.2em;
-}
-#agreeButton{
-    background: black; 
-    color: white;
-    border-color: black;
-    opacity: 1.0;
-    border-radius: 3px;
-    /* font-family: 'Covered By Your Grace', cursive; */
-    font-family: 'Amatic SC', cursive;
-    font-size: 1.2em;
+    font-size: 2.5em;
+    margin-top: 40px
 }
 #landingDiv {
     background: transparent;
@@ -40,31 +37,10 @@ html{
     position: relative;
     
 }
-#welcomeText {
+.swal-title,  .swal-button {
+    font-family: 'Amatic SC', cursive;
+}
+.swal-text{
+    font-family: 'Amatic SC', cursive;
+    font-size: 22px;
     color: black;
-}
-#modalStylingHeader{
-    margin-top:13%;
-}
-.uk-card-default .uk-card-title {
-    color: white;
-    /* font-family: 'Covered By Your Grace', cursive; */
-    font-family: 'Amatic SC', cursive;
-    font-size: 2.5em;
-    text-align: center;
-}
-#welcomeText {
-    color: black;
-    /* font-family: 'Covered By Your Grace', cursive; */
-    font-family: 'Amatic SC', cursive;
-    font-size: 2.0em;
-    transform: translateY(40%);
-}
-.uk-button {
-    width: 120px;
-    transform: translateY(30%);
-}
-.uk-modal-title {
-    /* font-family: 'Covered By Your Grace', cursive; */
-    font-family: 'Amatic SC', cursive;
-}
