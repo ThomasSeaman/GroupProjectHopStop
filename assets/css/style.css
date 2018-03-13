@@ -5,11 +5,6 @@
     opacity: 0.8;
 }
 
-.input{
-    height:100px;
-    background-color:lightgray;
-}
-
 .uk-cover-container {
     width: 100%;
     height: auto;
@@ -53,7 +48,7 @@
 
 #searchBar{
     padding: 20px;
-    background-color:lightgray;
+    background-color:#edeae5;
  }
 
  #submitBtn{
