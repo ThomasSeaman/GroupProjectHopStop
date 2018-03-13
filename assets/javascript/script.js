@@ -22,22 +22,6 @@ $("#enterButton").on('click', function () {
     })
 
 
-// $('#enterButton').click(function(e){
-//     e.preventDefault();
-//     var link = $(this).attr('href');
-
-//     swal({
-//         title: "Are you sure?",
-//         text: "By clicking 'OK' you will be redirected to the link.",
-//         type: "warning",
-//         showCancelButton: true
-//     },
-//     function(){
-//         window.location.href = "main.html";
-//     });
-// });
-
-
 //on enter within "formUserState" fire onclick associated with the submitBtn
 $("#formUserCity").keyup(function (event) {
     if (event.keyCode === 13) {
@@ -101,8 +85,8 @@ $('#submitBtn').on('click', function () {
             $('#searchResults').append(`
              <div class="uk-section uk-section-muted">
                 <div class="uk-container results-div uk-width-1-1">
-                    <h4>Click Marker on Map for Brewery Info</h4>
-                    <h3>Search Results</h3>
+                    <h4 style="font-family: 'Amatic SC', cursive; font-size:2.0em;">Click Marker on Map for Brewery Info</h4>
+                    <h3 style="font-family: 'Amatic SC', cursive; font-size:2.0em;">Search Results</h3>
                         <div id="breweryCard"></div>
                 </div>
             </div>
@@ -170,14 +154,16 @@ $('#submitBtn').on('click', function () {
                             </div>
                         <div class="uk-card-body">
                         <div class="uk-width">
-                                        <h3 id="card-${breweryId}" class="uk-margin-remove-bottom">${breweryName}</h3>
+                                        <h3 id="card-${breweryId}" class="uk-margin-remove-bottom" style="font-family: 'Amatic SC', cursive; font-size:2.0em;">${breweryName}</h3>
                                     </div>
-                            <h6>Description<h6>
-                                <p>${description}</p>
+                            <h6 style="font-family: 'Amatic SC', cursive; font-size:2.0em;">Description<h6>
+                                <p style="font-family: 'Amatic SC', cursive; font-size:2.0em;">${description}</p>
                         </div>
                         <div class="uk-card-footer">
-                            <a href=${website} target="_blank" class="uk-button uk-button-text">Website</a>
-                        </div>
+                        <span style="font-family: 'Amatic SC', cursive; font-size:2.0em;">
+                        <a href=${website} target="_blank" class="uk-button uk-button-text" style="font-family: 'Amatic SC', cursive; font-size:1.0em;">Website</a>
+                        ${stAddress}</span>
+                            </div>
                         </div>
                         </div>
                         <br>
