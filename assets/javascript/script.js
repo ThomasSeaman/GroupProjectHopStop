@@ -3,11 +3,11 @@ var idArray = []
 var latLngArray = []
 var locNameArray = []
 var breweryIdArray = []
-var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A1','B1','C1','D1','E1','F1','G1','H1','I1','J1','K','L1','M1','N1','O1','P1','Q1','R1','S1','T1','U1','V1','W1','X1','Y1','Z1']
+var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1', 'H1', 'I1', 'J1', 'K', 'L1', 'M1', 'N1', 'O1', 'P1', 'Q1', 'R1', 'S1', 'T1', 'U1', 'V1', 'W1', 'X1', 'Y1', 'Z1']
 var labelIndex = 0
 
 //on enter within "formUserState" fire onclick associated with the submitBtn
-$("#formUserCity").keyup(function(event) {
+$("#formUserCity").keyup(function (event) {
     if (event.keyCode === 13) {
         $('#submitBtn').click();
     }
@@ -16,8 +16,12 @@ $("#formUserCity").keyup(function(event) {
 // On Submit Button Click
 $('#submitBtn').on('click', function () {
 
+    // ****Christian edit 3/11 # 1 ****
     // Empty any previous data from brewery card container
-    $('#breweryCard').empty()
+    // $('#breweryCard').empty() - *******disabled on 3/11 as part of Incorporate search div into dynamic js.********
+    $('#searchResults').empty() //********Added on 3/11 as part of Incorporate search div into dynamic js.********
+    //End of edit # 1
+
     $('#map').empty()
     var latLngArray = []
     var latLngArray = []
@@ -34,55 +38,85 @@ $('#submitBtn').on('click', function () {
         method: "GET"
     }).then(function (response) {
 
-        // move to top of map
-        $('html, body').animate({
-            scrollTop: ($('#map').offset().top)
-        }, 500)
+        console.log("Console Logging Response..." + response.data)
 
-        // Loop through api data and send relevant information to global variables
-        for (i = 0; i < response.data.length; i++) {
-            var lat = response.data[i].latitude
-            var lng = response.data[i].longitude
-            var latLngObj = { lat: lat, lng: lng }
-            var locName = response.data[i].brewery.name
+        //*****Christian edit 3/11 #2. Lines 43-64 ******
+        //Flow control for if/when breweryDB doesnt locate a brewery in the searched city.
+        if (typeof response.data === "undefined") {
+            console.log("Response is undefined")
+            $('#formUserCity').val("") //added 3/11 - clears city input 
+            $('#formUserState').val("") //added 3/11 - clears state input 
 
-            var breweryId = response.data[i].brewery.id
+            //**** PLACEHOLDER CODE - NEED TO BUILD A MODAL IN PLACE OF THIS FEATURE****
+            alert("Sorry, but we coudldn't find any breweries in " + userCity + ".")
 
-            // Push variables to global variable
-            locNameArray.push(locName)
-            latLngArray.push(latLngObj)
-            breweryIdArray.push(breweryId)
+        }
 
-            //Location endpoint variables
-            var breweryName = (response.data[i].brewery.name)
-            var description = (response.data[i].brewery.description)
-            var website = (response.data[i].brewery.website)
-            var stAddress = (response.data[i].streetAddress)
-            var state = (response.data[i].region)
-            var zip = (response.data[i].postal)
-            var phone = (response.data[i].phone)
-            var brewIcon
-            var brewImages = response.data[i].brewery.images
+        else {
 
-            //if then to handle blank icons
-            if (typeof brewImages != 'undefined') {
-                var brewIcon = response.data[i].brewery.images.large
-            }
-            else {
-                var brewIcon = "assets/images/brewPlaceholder.png"
+            //Adds an empty search div to the page. Get's populated later with $('#breweryCard').append function. 
+            $('#searchResults').append(`
+             <div class="uk-section uk-section-muted">
+                <div class="uk-container results-div uk-width-1-1">
+                    <h3>Search Results</h3>
+                        <div id="breweryCard"></div>
+                </div>
+            </div>
+            `)
 
-            }
+            // End of edit #2
 
-            // if then to handle undefined description
-            if (typeof description != 'undefined') {
+            // move to top of map
+            $('html, body').animate({
+                scrollTop: ($('#map').offset().top)
+            }, 500)
+
+
+            // Loop through api data and send relevant information to global variables
+            for (i = 0; i < response.data.length; i++) {
+                var lat = response.data[i].latitude
+                var lng = response.data[i].longitude
+                var latLngObj = { lat: lat, lng: lng }
+                var locName = response.data[i].brewery.name
+
+                var breweryId = response.data[i].brewery.id
+
+                // Push variables to global variable
+                locNameArray.push(locName)
+                latLngArray.push(latLngObj)
+                breweryIdArray.push(breweryId)
+
+                //Location endpoint variables
+
+                var breweryName = (response.data[i].brewery.name)
                 var description = (response.data[i].brewery.description)
-            }
-            else {
-                var description = "This brewery has no available description"
-            }
+                var website = (response.data[i].brewery.website)
+                var stAddress = (response.data[i].streetAddress)
+                var state = (response.data[i].region)
+                var zip = (response.data[i].postal)
+                var phone = (response.data[i].phone)
+                var brewIcon
+                var brewImages = response.data[i].brewery.images
 
-            //Append search results to the page - dynamic jquery using string interpolation
-            $('#breweryCard').append(`
+                //if then to handle blank icons
+                if (typeof brewImages != 'undefined') {
+                    var brewIcon = response.data[i].brewery.images.large
+                }
+                else {
+                    var brewIcon = "assets/images/brewPlaceholder.png"
+
+                }
+
+                // if then to handle undefined description
+                if (typeof description != 'undefined') {
+                    var description = (response.data[i].brewery.description)
+                }
+                else {
+                    var description = "This brewery has no available description"
+                }
+
+                //Append search results to the empty search div
+                $('#breweryCard').append(`
                         <div class="uk-card uk-card-default uk-width-1-1">
                             <div class="uk-card-header">
                                 <div class="uk-grid-small uk-flex-middle" uk-grid>
@@ -106,83 +140,86 @@ $('#submitBtn').on('click', function () {
                         <br>
                         <br>
                         `)
+            }
+
+            // Initialize map with latLngArray data
+            initMap(latLngArray)
+
         }
 
-        // Initialize map with latLngArray data
-        initMap(latLngArray)
-
+    //Error Log
     }).catch(function (err) {
         console.log(err)
     })
 
-// Create Map Function
-function initMap(beerMap) {
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
-        center: beerMap[0]
-    })
+    // Create Map Function
+    function initMap(beerMap) {
 
-    for (i = 0; i < beerMap.length; i++) {
-        var position = beerMap[i]
-        var breweryId = breweryIdArray[i]
-        var marker = new google.maps.Marker({
-            animation: google.maps.Animation.DROP,
-            position: position,
-            map: map,
-            title: locNameArray[i],
-            label: alphabet[i],
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: beerMap[0]
         })
 
-        // On Marker Click Event
-        google.maps.event.addListener(marker, 'click', function(e) {
+        for (i = 0; i < beerMap.length; i++) {
+            var position = beerMap[i]
+            var breweryId = breweryIdArray[i]
+            var marker = new google.maps.Marker({
+                animation: google.maps.Animation.DROP,
+                position: position,
+                map: map,
+                title: locNameArray[i],
+                label: alphabet[i],
+            })
 
-            var lat = e.latLng.lat();
-            var lng = e.latLng.lng();
+            // On Marker Click Event
+            google.maps.event.addListener(marker, 'click', function (e) {
 
-            var breweryIndex;
+                var lat = e.latLng.lat();
+                var lng = e.latLng.lng();
 
-            // Reverse lookup comparing each element in latLngArray to lat lng values of the map marker the user clicked
-            for (var i = 0; i < latLngArray.length; i++) {
-                var arrLat = latLngArray[i].lat;
-                var arrLng = latLngArray[i].lng;
-                //Math.round is rounding to the 3rd decimal place
-                if (Math.round(arrLat * 1000) / 1000 === Math.round(lat * 1000) / 1000
-                    && Math.round(arrLng * 1000) / 1000 === Math.round(lng * 1000) / 1000) {
-                    // console.log('matched on index', i);
-                    breweryIndex = i;//assign brewery index a value of index i
-                    break;
+                var breweryIndex;
+
+                // Reverse lookup comparing each element in latLngArray to lat lng values of the map marker the user clicked
+                for (var i = 0; i < latLngArray.length; i++) {
+                    var arrLat = latLngArray[i].lat;
+                    var arrLng = latLngArray[i].lng;
+                    //Math.round is rounding to the 3rd decimal place
+                    if (Math.round(arrLat * 1000) / 1000 === Math.round(lat * 1000) / 1000
+                        && Math.round(arrLng * 1000) / 1000 === Math.round(lng * 1000) / 1000) {
+                        // console.log('matched on index', i);
+                        breweryIndex = i;//assign brewery index a value of index i
+                        break;
+                    }
                 }
+
+                var scrollBreweryId = breweryIdArray[breweryIndex];
+
+                var scroll = $("#card-" + scrollBreweryId).offset().top;
+
+                $('html, body').animate({
+                    scrollTop: scroll
+                }, 300)
+            })
+        }
+
+        // show a button that allows the user to return to the top of the page
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 850 || document.documentElement.scrollTop > 850) {
+                document.getElementById("returnToTop").style.display = "block";
+            } else {
+                document.getElementById("returnToTop").style.display = "none";
             }
-            
-            var scrollBreweryId = breweryIdArray[breweryIndex];
+        }
 
-            var scroll = $("#card-"+scrollBreweryId).offset().top;
-
-            $('html, body').animate({
-                scrollTop: scroll
-            }, 300)
+        // When the user clicks on the button, scroll to the top of the document
+        $("#returnToTop").on("click", function () {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         })
+
     }
-
-    // show a button that allows the user to return to the top of the page
-window.onscroll = function() {scrollFunction()};
-
-function scrollFunction() {
-    if (document.body.scrollTop > 850 || document.documentElement.scrollTop > 850) {
-        document.getElementById("returnToTop").style.display = "block";
-    } else {
-        document.getElementById("returnToTop").style.display = "none";
-    }
-}
-
-// When the user clicks on the button, scroll to the top of the document
-$("#returnToTop").on("click", function() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-})
-
-
-}
 
 })

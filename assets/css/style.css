@@ -24,14 +24,14 @@ html{
 }
 
 #map {
-    height: 300px;
+    height: 450px;
     padding-top: 50px;
 }
 
-.search-results{
+#searchResults{
     margin-top:auto;
     margin-bottom:auto;
-    text-align:center;
+    text-align:left;
 }
 
 #breweryCard{
@@ -50,6 +50,21 @@ html{
     width: 300px;
     height: 300px;
 }
+
+#searchBar{
+    padding: 20px;
+    background-color:lightgray;
+ }
+
+ #submitBtn{
+    background-color: white;
+    border-radius: 3px;
+    border-radius: 50px;
+ }
+
+ #formUserState,#formUserCity{
+     border-radius: 50px;
+ }
 
 
 
