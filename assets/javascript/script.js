@@ -82,7 +82,7 @@ $('#submitBtn').on('click', function () {
              <div class="uk-section uk-section-muted">
                 <div class="uk-container results-div uk-width-1-1">
                     <h4 style="font-family: 'Amatic SC', cursive; font-size:2.0em;">Click Marker on Map for Brewery Info</h4>
-                    <h3 style="font-family: 'Amatic SC', cursive; font-size:2.0em;">Search Results</h3>
+                    <h3 style="font-family: 'Amatic SC', cursive; font-size:2.0em; font-weight:bold;">Search Results</h3>
                         <div id="breweryCard"></div>
                 </div>
             </div>
@@ -157,15 +157,15 @@ $('#submitBtn').on('click', function () {
                             </div>
                         <div class="uk-card-body">
                         <div class="uk-width">
-                                        <h3 class="uk-margin-remove-bottom" style="font-family: 'Amatic SC', cursive; font-size:2.0em;">${breweryName}</h3>
+                                        <h3 class="uk-margin-remove-bottom" style="font-family: 'Amatic SC', cursive; font-size:3.0em; text-align: center; font-weight: bold;">${breweryName}</h3>
                                     </div>
-                            <h6 style="font-family: 'Amatic SC', cursive; font-size:2.0em;">Description<h6>
-                                <p style="font-family: 'Amatic SC', cursive; font-size:2.0em;">${description}</p>
+                            <p style="font-family: 'Amatic SC'; font-size:1.8em; text-decoration: underline; margin-bottom: -10px; font-weight: bold;">Description<p>
+                                <p style="font-family: 'Oswald', sans-serif; font-size:1.2em; font-weight: lighter;">${description}</p>
                         </div>
                         <div class="uk-card-footer">
                         <span style="font-family: 'Amatic SC', cursive; font-size:2.0em;">
-                        <a href=${website} target="_blank" class="uk-button uk-button-text" style="font-family: 'Amatic SC', cursive; font-size:1.0em;">Website</a>
-                        ${stAddress}</span>
+                        <a href=${website} target="_blank" class="uk-button uk-button-text" style="font-family: 'Amatic SC', cursive; font-size:1.0em;">Website</a><span>
+                        <p class="uk-float-right">Address: ${stAddress}</p>
                             </div>
                         </div>
                         </div>

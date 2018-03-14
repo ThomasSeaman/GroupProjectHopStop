@@ -49,6 +49,7 @@
 #searchBar{
     padding: 20px;
     background-color:#edeae5;
+    padding-top: 10px;
  }
 
  #submitBtn{
@@ -61,8 +62,8 @@
      border-radius: 50px;
  }
 
-
-
-
+ .uk-select {
+    background-image: none !important;
+}
 
 
