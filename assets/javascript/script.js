@@ -82,7 +82,7 @@ $('#submitBtn').on('click', function () {
              <div class="uk-section uk-section-muted">
                 <div class="uk-container results-div uk-width-1-1">
                     <h4 style="font-family: 'Amatic SC', cursive; font-size:2.0em;">Click Marker on Map for Brewery Info</h4>
-                    <h3 style="font-family: 'Amatic SC', cursive; font-size:2.0em; font-weight:bold;">Search Results</h3>
+                    <h3 style="font-family: 'Amatic SC', cursive; font-size:2.0em; font-weight:bold;">Search Results  <img src="assets/images/Powered-By-BreweryDB.png" alt="Powered by BreweryDB" id="breweryDBImage"></h3>
                         <div id="breweryCard"></div>
                 </div>
             </div>
