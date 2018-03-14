@@ -17,8 +17,10 @@ $("#enterButton").on('click', function () {
             text: "Agree",
             cancel: true
         }
-    }).then(function () {
-        window.location.href = "main.html";
+    }).then(Agree => {
+        if (Agree) {
+            window.location.href = "main.html";
+        }
     })
 })
 
