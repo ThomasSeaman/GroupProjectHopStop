@@ -32,6 +32,10 @@ $("#formUserCity").keyup(function (event) {
     }
 });
 
+
+
+
+
 // On Submit Button Click
 $('#submitBtn').on('click', function () {
 
@@ -84,7 +88,7 @@ $('#submitBtn').on('click', function () {
              <div class="uk-section uk-section-muted">
                 <div class="uk-container results-div uk-width-1-1">
                     <h4 style="font-family: 'Amatic SC', cursive; font-size:2.0em;">Click Marker on Map for Brewery Info</h4>
-                    <h3 style="font-family: 'Amatic SC', cursive; font-size:2.0em; font-weight:bold;">Search Results  <img src="assets/images/Powered-By-BreweryDB.png" alt="Powered by BreweryDB" id="breweryDBImage"></h3>
+                    <h3 style="font-family: 'Amatic SC', cursive; font-size:2.0em; font-weight:bold;">Search Results</h3>
                         <div id="breweryCard"></div>
                 </div>
             </div>
@@ -257,4 +261,50 @@ $('#submitBtn').on('click', function () {
 
     }
 
+
+
 })
+
+//Chat Function TEST
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyDVgKiM3IVFFAaXxgeub9GznES-VEmH0IQ",
+    authDomain: "hopstopchat.firebaseapp.com",
+    databaseURL: "https://hopstopchat.firebaseio.com",
+    projectId: "hopstopchat",
+    storageBucket: "hopstopchat.appspot.com",
+    messagingSenderId: "50820134028"
+};
+firebase.initializeApp(config);
+
+var name = ""
+firebase.database().ref('chat/').on('child_added',
+function(snapshot){
+    var data = "<div id = 'm' <p class = 'name' style = 'color:gray;'>" + snapshot.child('name').val() + "</p><p class = 'message' style = 'color:white'>" +snapshot.child('message').val() + "</p> </div>"
+    
+    $("#messages").html($("#messages").html()+data)
+})
+
+
+$("#submitButton").on("click", function () {
+    name = $("#name").val()
+    $("#nameParent").fadeOut();    
+})
+
+$("#sendButton").on("click", function(){
+    var mess = $("#msg").val();
+    firebase.database().ref("chat/" + Date.now()).set({
+        name: name,
+        message: mess,
+
+    })
+    $("#msg").val('')
+})
+
+$("#messages").empty();
+
+
+
+
+
+

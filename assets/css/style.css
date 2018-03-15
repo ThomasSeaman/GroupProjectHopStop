@@ -62,7 +62,33 @@
      border-radius: 50px;
  }
 
-#breweryDBImage{
-    width:150px;
-    height:38px;
+ #name{
+    width: 55%;
+    font-family: 'Oswald', sans-serif;
 }
+#submitButton {
+    width: 40%;
+    font-family: 'Amatic SC';
+}
+
+#sendButton {
+    width: 40%;
+    margin-top: 10px;
+    font-family: 'Amatic SC';
+}
+
+#msg {
+    max-height: 50%;
+    font-family: 'Oswald', sans-serif;
+}
+
+#messages {
+    max-height: 400px;
+    margin-bottom: 10px;
+    font-family: 'Oswald', sans-serif;
+}
+
+.uk-offcanvas-content {
+    font-family: 'Oswald', sans-serif;
+}
+
