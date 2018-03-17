@@ -19,8 +19,8 @@
     <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
         <div class="uk-offcanvas-content">
 
-            
-            <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #offcanvas-usage" id = "chatToggle">Chat with other HopStoppers!</button>
+
+            <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #offcanvas-usage" id="chatToggle">Chat with other HopStoppers!</button>
 
 
             <div id="offcanvas-usage" uk-offcanvas>
@@ -29,16 +29,17 @@
                     <button class="uk-offcanvas-close" type="button" uk-close></button>
 
                     <div class="uk-margin">
-                        <div id = "nameParent">
-                            <input class="uk-input uk-form-width-medium" id = "name" type="text" placeholder="Enter Username">
+                        <div id="nameParent">
+                            <input class="uk-input uk-form-width-medium" id="name" type="text" placeholder="Enter Username">
                             <button class="uk-button uk-button-default uk-float-right" id="submitButton">Submit</button>
                         </div>
+                    </div>
+                    <div id="chatRoom">
+                        <div class="uk-panel uk-panel-scrollable" id="messages">
                         </div>
-                    <div id = "chatRoom">
-                        <div class = "uk-panel uk-panel-scrollable" id = "messages">
-                        </div>
-                        <textarea id = "msg" class = "uk-textarea uk-panel uk-panel-scrollable" id = "message"></textarea> <br>
-                        <button class = "uk-button uk-button-default uk-float-right" id = "sendButton">Send</button>
+                        <textarea id="msg" class="uk-textarea uk-panel uk-panel-scrollable" id="message"></textarea>
+                        <br>
+                        <button class="uk-button uk-button-default uk-float-right" id="sendButton">Send</button>
                     </div>
                 </div>
             </div>
@@ -46,15 +47,14 @@
         </div>
 
     </div>
-    
-    <!-- ****Christian added on 3/11 -  Putting everything in a container****-->
+
     <div class="container">
-        
+
         <div class="beerImage">
             <img src="assets/images/beerhopcolor.jpg" alt="Beer Image">
 
         </div>
-        <!-- Cover Image with Search Bars inside  -->
+
         <div id="searchBar">
             <div align="center">
                 <p style="font-family: 'Amatic SC', cursive; font-size:2.5em; font-weight:bold; margin-bottom: 5px;">Search for local Breweries!</p>
@@ -120,8 +120,6 @@
         </div>
         <!-- map div -->
         <div class="mapDiv"></div>
-
-        <!--****Modified by Christian on 3/11.Old Div is now created with JS. See line 55 JS file. -->
 
         <!-- Section component that holds our brewery search results -->
         <div id="searchResults"></div>

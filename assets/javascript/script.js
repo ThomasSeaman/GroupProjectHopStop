@@ -9,7 +9,6 @@ var labelIndex = 0
 //On click for landing page modal
 $("#enterButton").on('click', function () {
 
-
     swal({
         title: "Welcome to Hopstop",
         text: "By agreeing you are confirming you are over the age of 21.",
@@ -24,7 +23,6 @@ $("#enterButton").on('click', function () {
     })
 })
 
-
 //on enter within "formUserState" fire onclick associated with the submitBtn
 $("#formUserCity").keyup(function (event) {
     if (event.keyCode === 13) {
@@ -32,13 +30,8 @@ $("#formUserCity").keyup(function (event) {
     }
 });
 
-
-
-
-
 // On Submit Button Click
 $('#submitBtn').on('click', function () {
-
 
     // Empty any data from last instance
     $('#searchResults').empty()
@@ -55,7 +48,6 @@ $('#submitBtn').on('click', function () {
     var userCity = encodeURIComponent(userCity.trim())
     var userState = encodeURIComponent(userState.trim())
 
-
     // ajax request for user input data
     $.ajax({
         url: "https://crossorigin.me/http://api.brewerydb.com/v2/locations?key=0cb4a8ec09ac574eca1569f7b038857d&locality=" + userCity + "&region=" + userState + "",
@@ -66,12 +58,9 @@ $('#submitBtn').on('click', function () {
         if (typeof response.data === "undefined") {
             $('#formUserCity').val("") // - clears city input 
             $('#formUserState').val("") // - clears state input 
-
             swal("Oops!", "We're unable to locate any breweries in that city. Check your spelling or try a different location. ", {
                 closOnClickOutside: false,
             });
-
-
         }
 
         else {
@@ -98,7 +87,6 @@ $('#submitBtn').on('click', function () {
             $('html, body').animate({
                 scrollTop: ($('#searchBar').offset().top)
             }, 500)
-
 
             // Loop through api data and send relevant information to global variables
             for (i = 0; i < response.data.length; i++) {
@@ -149,8 +137,6 @@ $('#submitBtn').on('click', function () {
                     var stAddress = "Check Website for Address"
                 }
 
-
-
                 //Append search results to the empty search div
                 $('#breweryCard').append(`
                         <div id="card-${breweryId}" class="uk-card uk-card-default uk-width-1-1">
@@ -189,7 +175,6 @@ $('#submitBtn').on('click', function () {
     }).catch(function (err) {
         console.log(err)
     })
-
 
     // Create Map Function
     function initMap(beerMap) {
@@ -256,13 +241,8 @@ $('#submitBtn').on('click', function () {
             $('html, body').animate({
                 scrollTop: ($('#searchBar').offset().top)
             }, 500)
-
         })
-
     }
-
-
-
 })
 
 //Chat Function TEST
@@ -279,19 +259,19 @@ firebase.initializeApp(config);
 
 var name = ""
 firebase.database().ref('chat/').on('child_added',
-function(snapshot){
-    var data = "<div id = 'm' <p class = 'name' style = 'color:gray;'>" + snapshot.child('name').val() + "</p><p class = 'message' style = 'color:white'>" +snapshot.child('message').val() + "</p> </div>"
-    
-    $("#messages").html($("#messages").html()+data)
-})
+    function (snapshot) {
+        var data = "<div id = 'm' <p class = 'name' style = 'color:gray;'>" + snapshot.child('name').val() + "</p><p class = 'message' style = 'color:white'>" + snapshot.child('message').val() + "</p> </div>"
+
+        $("#messages").html($("#messages").html() + data)
+    })
 
 
 $("#submitButton").on("click", function () {
     name = $("#name").val()
-    $("#nameParent").fadeOut();    
+    $("#nameParent").fadeOut();
 })
 
-$("#sendButton").on("click", function(){
+$("#sendButton").on("click", function () {
     var mess = $("#msg").val();
     firebase.database().ref("chat/" + Date.now()).set({
         name: name,
@@ -302,9 +282,3 @@ $("#sendButton").on("click", function(){
 })
 
 $("#messages").empty();
-
-
-
-
-
-
