@@ -1,15 +1,31 @@
-
-
 // Global Variables
 var idArray = []
 var latLngArray = []
 var locNameArray = []
 var breweryIdArray = []
-var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A1','B1','C1','D1','E1','F1','G1','H1','I1','J1','K','L1','M1','N1','O1','P1','Q1','R1','S1','T1','U1','V1','W1','X1','Y1','Z1']
+var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1', 'H1', 'I1', 'J1', 'K', 'L1', 'M1', 'N1', 'O1', 'P1', 'Q1', 'R1', 'S1', 'T1', 'U1', 'V1', 'W1', 'X1', 'Y1', 'Z1']
 var labelIndex = 0
+var apiKey = config.API_KEY
+
+//On click for landing page modal
+$("#enterButton").on('click', function () {
+
+    swal({
+        title: "Welcome to Hopstop",
+        text: "By agreeing you are confirming you are over the age of 21.",
+        buttons: {
+            text: "Agree",
+            cancel: true
+        }
+    }).then(Agree => {
+        if (Agree) {
+            window.location.href = "main.html";
+        }
+    })
+})
 
 //on enter within "formUserState" fire onclick associated with the submitBtn
-$("#formUserState").keyup(function(event) {
+$("#formUserCity").keyup(function (event) {
     if (event.keyCode === 13) {
         $('#submitBtn').click();
     }
@@ -17,12 +33,15 @@ $("#formUserState").keyup(function(event) {
 
 // On Submit Button Click
 $('#submitBtn').on('click', function () {
-
-    // Empty any previous data from brewery card container
-    $('#breweryCard').empty()
-    $('#map').empty()
+    
+    // Empty any data from last instance
+    $('#searchResults').empty()
+    $('#map').remove()
+    $('#muteSection').remove()
     var latLngArray = []
     var latLngArray = []
+    var breweryIdArray = []
+    var locNameArray = []
 
     // Grab user city and state input, and convert into URI code
     var userCity = $('#formUserCity').val()
@@ -32,141 +51,235 @@ $('#submitBtn').on('click', function () {
 
     // ajax request for user input data
     $.ajax({
-        url: "https://crossorigin.me/http://api.brewerydb.com/v2/locations?key=0cb4a8ec09ac574eca1569f7b038857d&locality=" + userCity + "&region=" + userState + "",
+        url: "https://cors-anywhere.herokuapp.com/http://api.brewerydb.com/v2/locations?key=" + apiKey + "&locality=" + userCity + "&region=" + userState + "",
         method: "GET"
     }).then(function (response) {
 
-        // move to top of map
-        $('html, body').animate({
-            scrollTop: ($('#map').offset().top)
-        }, 500)
+        //Flow control for if/when breweryDB doesnt locate a brewery in the searched city.
+        if (typeof response.data === "undefined") {
+            $('#formUserCity').val("") // - clears city input 
+            $('#formUserState').val("") // - clears state input 
+            swal("Oops!", "We're unable to locate any breweries in that city. Check your spelling or try a different location. ", {
+                closOnClickOutside: false,
+            });
+        }
 
-        // Loop through api data and send relevant information to global variables
-        for (i = 0; i < response.data.length; i++) {
-            var lat = response.data[i].latitude
-            var lng = response.data[i].longitude
-            var latLngObj = { lat: lat, lng: lng }
-            var locName = response.data[i].brewery.name
+        else {
+            // add map div to page
+            $('.mapDiv').append(`<div id="muteSection" class="uk-section uk-section-muted">
+                <div class="uk-container">
+                <div class="uk-width-1-1 uk-resize-verticle" id="map">
+                </div>
+                </div>
+            </div>`)
 
-            var breweryId = response.data[i].brewery.id
+            //Adds an empty search div to the page. Get's populated later with $('#breweryCard').append function. 
+            $('#searchResults').append(`
+             <div class="uk-section uk-section-muted">
+                <div class="uk-container results-div uk-width-1-1">
+                    <h4 style="font-family: 'Amatic SC', cursive; font-size:2.0em;">Click Marker on Map for Brewery Info</h4>
+                    <h3 style="font-family: 'Amatic SC', cursive; font-size:2.0em; font-weight:bold;">Search Results   <img src="assets/images/Powered-By-BreweryDB.png" alt="Powered by BreweryDB" id="breweryDBImage"></h3>
+                        <div id="breweryCard"></div>
+                </div>
+            </div>
+            `)
 
-            // Push variables to global variable
-            locNameArray.push(locName)
-            latLngArray.push(latLngObj)
-            breweryIdArray.push(breweryId)
+            // move to top of map
+            $('html, body').animate({
+                scrollTop: ($('#searchBar').offset().top)
+            }, 500)
 
-            //Location endpoint variables
-            var breweryName = (response.data[i].brewery.name)
-            var description = (response.data[i].brewery.description)
-            var website = (response.data[i].brewery.website)
-            var stAddress = (response.data[i].streetAddress)
-            var state = (response.data[i].region)
-            var zip = (response.data[i].postal)
-            var phone = (response.data[i].phone)
-            var brewIcon
-            var brewImages = response.data[i].brewery.images
+            // Loop through api data and send relevant information to global variables
+            for (i = 0; i < response.data.length; i++) {
+                var lat = response.data[i].latitude
+                var lng = response.data[i].longitude
+                var latLngObj = { lat: lat, lng: lng }
+                var locName = response.data[i].brewery.name
 
-            //if then to handle blank icons
-            if (typeof brewImages != 'undefined') {
-                var brewIcon = response.data[i].brewery.images.large
-            }
-            else {
-                var brewIcon = "assets/images/brewPlaceholder.png"
+                var breweryId = response.data[i].brewery.id
 
-            }
+                // Push variables to global variable
+                locNameArray.push(locName)
+                latLngArray.push(latLngObj)
+                breweryIdArray.push(breweryId)
 
-            // if then to handle undefined description
-            if (typeof description != 'undefined') {
+                //Location endpoint variables
+                var breweryName = (response.data[i].brewery.name)
                 var description = (response.data[i].brewery.description)
-            }
-            else {
-                var description = "This brewery has no available description"
-            }
+                var website = (response.data[i].brewery.website)
+                var stAddress = (response.data[i].streetAddress)
+                var state = (response.data[i].region)
+                var zip = (response.data[i].postal)
+                var phone = (response.data[i].phone)
+                var brewIcon
+                var brewImages = response.data[i].brewery.images
 
-            //Append search results to the page - dynamic jquery using string interpolation
-            $('#breweryCard').append(`
-                        <div class="uk-card uk-card-default uk-width-1-1">
+                //if then to handle blank icons
+                if (typeof brewImages != 'undefined') {
+                    var brewIcon = response.data[i].brewery.images.large
+                }
+                else {
+                    var brewIcon = "assets/images/brewPlaceholder.png"
+                }
+
+                // if then to handle undefined description
+                if (typeof description != 'undefined') {
+                    var description = (response.data[i].brewery.description)
+                }
+                else {
+                    var description = "This brewery has no available description"
+                }
+
+                // if then to handle undefined street address
+                if (typeof stAddress != 'undefined') {
+                    var stAddress = (response.data[i].streetAddress)
+                }
+                else {
+                    var stAddress = "Check Website for Address"
+                }
+
+                //Append search results to the empty search div
+                $('#breweryCard').append(`
+                        <div id="card-${breweryId}" class="uk-card uk-card-default uk-width-1-1">
                             <div class="uk-card-header">
                                 <div class="uk-grid-small uk-flex-middle" uk-grid>
-                                    <div class="uk-width-auto">
-                                        <img class="uk-border-circle" width="100" height="100" src="${brewIcon}">
-                                    </div>
-                                    <div class="uk-width-expand">
-                                        <h3 id="card-${breweryId}" class="uk-card-title uk-margin-remove-bottom">${breweryName}</h3>
+                                    <div class="uk-width">
+                                        <img class="uk-border-circle uk-align-center" id="brewImage" src="${brewIcon}">
                                     </div>
                                 </div>
                             </div>
                         <div class="uk-card-body">
-                            <h6>Description<h6>
-                                <p>${description}</p>
+                        <div class="uk-width">
+                                        <h3 class="uk-margin-remove-bottom" style="font-family: 'Amatic SC', cursive; font-size:3.0em; text-align: center; font-weight: bold;">${breweryName}</h3>
+                                    </div>
+                            <p style="font-family: 'Amatic SC'; font-size:1.8em; text-decoration: underline; margin-bottom: -10px; font-weight: bold;">Description<p>
+                                <p style="font-family: 'Oswald', sans-serif; font-size:1.2em; font-weight: lighter;">${description}</p>
                         </div>
                         <div class="uk-card-footer">
-                            <a href=${website} target="_blank" class="uk-button uk-button-text">Website</a>
-                        </div>
+                        <span style="font-family: 'Amatic SC', cursive; font-size:2.0em;">
+                        <a href=${website} target="_blank" class="uk-button uk-button-text" style="font-family: 'Amatic SC', cursive; font-size:1.0em;">Website</a><span>
+                        <p class="uk-float-right">Address: ${stAddress}</p>
+                            </div>
                         </div>
                         </div>
                         <br>
                         <br>
                         `)
+            }
+
+            // Initialize map with latLngArray data
+            initMap(latLngArray)
+
         }
 
-        // Initialize map with latLngArray data
-        initMap(latLngArray)
-
+        //Error Log
     }).catch(function (err) {
         console.log(err)
     })
 
-// Create Map Function
-function initMap(beerMap) {
+    // Create Map Function
+    function initMap(beerMap) {
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
-        center: beerMap[0]
-    })
-
-    for (i = 0; i < beerMap.length; i++) {
-        var position = beerMap[i]
-        var breweryId = breweryIdArray[i]
-        var marker = new google.maps.Marker({
-            animation: google.maps.Animation.DROP,
-            position: position,
-            map: map,
-            title: locNameArray[i],
-            label: alphabet[i],
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: beerMap[0]
         })
 
-        // On Marker Click Event
-        google.maps.event.addListener(marker, 'click', function(e) {
+        for (i = 0; i < beerMap.length; i++) {
+            var position = beerMap[i]
+            var breweryId = breweryIdArray[i]
+            var marker = new google.maps.Marker({
+                animation: google.maps.Animation.DROP,
+                position: position,
+                map: map,
+                title: locNameArray[i],
+                label: alphabet[i],
+            })
 
-            var lat = e.latLng.lat();
-            var lng = e.latLng.lng();
+            // On Marker Click Event
+            google.maps.event.addListener(marker, 'click', function (e) {
 
-            var breweryIndex;
+                var lat = e.latLng.lat();
+                var lng = e.latLng.lng();
 
-            // Reverse lookup comparing each element in latLngArray to lat lng values of the map marker the user clicked
-            for (var i = 0; i < latLngArray.length; i++) {
-                var arrLat = latLngArray[i].lat;
-                var arrLng = latLngArray[i].lng;
-                //Math.round is rounding to the 3rd decimal place
-                if (Math.round(arrLat * 1000) / 1000 === Math.round(lat * 1000) / 1000
-                    && Math.round(arrLng * 1000) / 1000 === Math.round(lng * 1000) / 1000) {
-                    // console.log('matched on index', i);
-                    breweryIndex = i;//assign brewery index a value of index i
-                    break;
+                var breweryIndex = 0
+
+                // Reverse lookup comparing each element in latLngArray to lat lng values of the map marker the user clicked
+                for (var i = 0; i < latLngArray.length; i++) {
+                    var arrLat = latLngArray[i].lat;
+                    var arrLng = latLngArray[i].lng;
+                    //Math.round is rounding to the 3rd decimal place
+                    if (Math.round(arrLat * 1000) / 1000 === Math.round(lat * 1000) / 1000
+                        && Math.round(arrLng * 1000) / 1000 === Math.round(lng * 1000) / 1000) {
+                        breweryIndex = i;//assign brewery index a value of index i
+                        break;
+                    }
                 }
+
+                var scrollBreweryId = breweryIdArray[breweryIndex];
+
+                var scroll = $("#card-" + scrollBreweryId).offset().top;
+
+                $('html, body').animate({
+                    scrollTop: scroll
+                }, 300)
+            })
+        }
+
+        // show a button that allows the user to return to the top of the page
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 850 || document.documentElement.scrollTop > 850) {
+                document.getElementById("returnToTop").style.display = "block";
+            } else {
+                document.getElementById("returnToTop").style.display = "none";
             }
-            
-            var scrollBreweryId = breweryIdArray[breweryIndex];
+        }
 
-            var scroll = $("#card-"+scrollBreweryId).offset().top;
-
+        // When the user clicks on the return button, scroll to the top of the document
+        $("#returnToTop").on("click", function () {
             $('html, body').animate({
-                scrollTop: scroll
-            }, 300)
+                scrollTop: ($('#searchBar').offset().top)
+            }, 500)
         })
     }
-
-}
-
 })
+
+//Chat Function TEST
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyDVgKiM3IVFFAaXxgeub9GznES-VEmH0IQ",
+    authDomain: "hopstopchat.firebaseapp.com",
+    databaseURL: "https://hopstopchat.firebaseio.com",
+    projectId: "hopstopchat",
+    storageBucket: "hopstopchat.appspot.com",
+    messagingSenderId: "50820134028"
+};
+firebase.initializeApp(config);
+
+var name = ""
+firebase.database().ref('chat/').on('child_added',
+    function (snapshot) {
+        var data = "<div id = 'm' <p class = 'name' style = 'color:gray;'>" + snapshot.child('name').val() + "</p><p class = 'message' style = 'color:white'>" + snapshot.child('message').val() + "</p> </div>"
+
+        $("#messages").html($("#messages").html() + data)
+    })
+
+
+$("#submitButton").on("click", function () {
+    name = $("#name").val()
+    $("#nameParent").fadeOut();
+})
+
+$("#sendButton").on("click", function () {
+    var mess = $("#msg").val();
+    firebase.database().ref("chat/" + Date.now()).set({
+        name: name,
+        message: mess,
+
+    })
+    $("#msg").val('')
+})
+
+$("#messages").empty();

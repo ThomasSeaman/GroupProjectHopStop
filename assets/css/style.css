@@ -1,24 +1,9 @@
-html{
-    height: 100%;
-    width: 100%;
-}
-
 #formEntries{
     margin-top: 250px;
 }
 #navBar{
     opacity: 0.8;
 }
-
-.input{
-    height:100px;
-    background-color:lightgray;
-}
-
-input{
-    font-size: 100px;
-}
-
 .uk-cover-container {
     width: 100%;
     height: auto;
@@ -26,10 +11,69 @@ input{
     padding-top: 50px;
     padding-bottom: 50px;
 }
-
 #map {
-    height: 300px;
+    height: 450px;
     padding-top: 50px;
 }
-
-
+#searchResults{
+    margin-top:-120px;
+    margin-bottom:auto;
+    text-align:left;
+}
+.resultStyle{
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+#breweryCard{
+    margin-top:auto;
+    margin-bottom:auto;
+    text-align:left;
+}
+#returnToTop {
+    display:none;
+    position: fixed;
+    bottom: -77px;
+    right: -38px;
+    z-index: 99;
+    cursor: pointer;
+    width: 300px;
+    height: 300px;
+}
+#searchBar{
+    padding: 20px;
+    background-color:#edeae5;
+    padding-top: 10px;
+ }
+ #submitBtn{
+    background-color: white;
+    border-radius: 3px;
+    border-radius: 50px;
+ }
+ #formUserState,#formUserCity{
+     border-radius: 50px;
+ }
+ #name{
+    width: 55%;
+    font-family: 'Oswald', sans-serif;
+}
+#submitButton {
+    width: 40%;
+    font-family: 'Amatic SC';
+}
+#sendButton {
+    width: 40%;
+    margin-top: 10px;
+    font-family: 'Amatic SC';
+}
+#msg {
+    max-height: 50%;
+    font-family: 'Oswald', sans-serif;
+}
+#messages {
+    max-height: 400px;
+    margin-bottom: 10px;
+    font-family: 'Oswald', sans-serif;
+}
+.uk-offcanvas-content {
+    font-family: 'Oswald', sans-serif;
+}
